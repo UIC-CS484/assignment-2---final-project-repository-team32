@@ -1,4 +1,4 @@
-.login.background {
+.form.background {
     min-height: 700px;
     width: 100%;
     margin: 0;
@@ -12,7 +12,7 @@
     background-position: center;
 }
 
-.login.container {
+.form.container {
     width: 320px;
     height: 420px;
     background: rgba(86, 86, 86, 0.6);
