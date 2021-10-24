@@ -17,8 +17,10 @@ router.post('/', (req,res) => {
     var password = req.body.password;
 
     if (password.length < 8){
-        var error = "Password not long enough";
-        console.log(error);
+        // app.locals.error = "Password not long enough";
+        // console.log(signup_error);
+
+        res.render('signup.ejs')
     }
 
     users.push({
