@@ -11,6 +11,9 @@ app.use(express.static('public')) //telling node where the files will come from
 const dotenv = require('dotenv')
 dotenv.config()
 
+app.use(express.urlencoded({ extended: false })) // access form elements inside req var
+
+
 const indexRouter = require('./routes/index')
 const loginRouter = require('./routes/login')
 const signupRouter = require('./routes/signup')
