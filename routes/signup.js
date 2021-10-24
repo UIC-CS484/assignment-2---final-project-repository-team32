@@ -17,25 +17,23 @@ router.post('/', (req,res) => {
     var password = req.body.password;
 
     if (password.length < 8){
-        // app.locals.error = "Password not long enough";
-        // console.log(signup_error);
+        res.render('signup.ejs', {error: 'Password must be at least 8 characters'})
+    } else {
 
-        res.render('signup.ejs')
+        users.push({
+            id: id,
+            name: name,
+            email: email,
+            password: password
+        })
+
+        console.log(users);
+
+        let data = JSON.stringify(users);
+        fs.writeFileSync('users.json', data);
+
+        res.redirect('/login');
     }
-
-    users.push({
-        id: id,
-        name: name,
-        email: email,
-        password: password
-    })
-
-    console.log(users);
-
-    let data = JSON.stringify(users);
-    fs.writeFileSync('users.json', data);
-
-    res.redirect('/login');
 })
 
 module.exports = router
