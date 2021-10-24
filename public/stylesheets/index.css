@@ -1,0 +1,55 @@
+.weather.banner {
+    background-color: lightgray;
+    width: 100%;
+    clear: both;
+
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-areas: 
+        "heading heading ."
+        "time time ."
+        "box1 box2 box3";
+}
+
+.city-name {
+    grid-area: heading;
+
+    width: 100%;
+
+    text-align: left;
+}
+
+.date-updated {
+    grid-area: time;
+}
+.box {
+    border-color: darkgrey;
+    border:solid 1px;
+}
+.temperature.box {
+    grid-area: box1;
+}
+
+.high-low.box {
+    grid-area: box2;
+}
+
+.extra-readings {
+    grid-area: box3;
+}
+
+@media all and (max-width:750px) {
+    .weather.banner {
+        background-color: lightgray;
+        width: 100%;
+        clear: both;
+    
+        display: grid;
+        grid-template-areas: 
+            "heading heading ."
+            "time . ."
+            ". box1 ."
+            ". box2 ."
+            ". box3 .";
+    }
+}
