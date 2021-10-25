@@ -38,7 +38,7 @@ router.post('/', (req,res) => {
     }
 })
 
-let blacklistedPasswords = ["Password123"];
+let blacklistedPasswords = ["Password123","Passw0rd"];
 
 function passwordValidator(pswd) {
   
@@ -56,7 +56,7 @@ function passwordValidator(pswd) {
     } else if (pswd.toUpperCase() === pswd) {
         msg = "password needs uppercase letters";
     } else if(blacklistedPasswords.indexOf(pswd) > -1) {
-        msg = "password blacklisted"
+        msg = `password \"${pswd}\" blacklisted`
     } else {
         isValid=true;
     }
