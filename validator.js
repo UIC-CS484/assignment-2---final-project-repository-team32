@@ -7,10 +7,12 @@ function passwordValidator(pswd) {
     
     if(/\s/.test(pswd)) {
         msg = "password may not contain spaces"
-    } else if (!(/\d/.test(pswd) && /[a-zA-Z]/.test(pswd))) {
-        msg = "password must contain letter and a digit";
+    } else if (!(/\d/.test(pswd))) {
+        msg = "password must contain a digit";
+    } else if ( !(/[a-zA-Z]/.test(pswd)) ) {
+        msg = "password must contain a letter";
     } else if (pswd.length < 8) {
-      msg = "password must have length greater than 8";
+        msg = "password must have length greater than 8";
     } else if (pswd.toLowerCase() === pswd) {
         msg = "password needs uppercase letters";
     } else if (pswd.toUpperCase() === pswd) {

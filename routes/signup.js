@@ -2,7 +2,7 @@ var fs = require('fs');
 const express = require('express')
 const router = express.Router()
 
-const passwordValidator = require('./validator.js')
+const passwordValidator = require('../validator.js')
 
 //create routes
 router.get('/',(req,res) => {
