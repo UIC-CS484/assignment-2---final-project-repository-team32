@@ -16,8 +16,10 @@ router.post('/', (req,res) => {
     var email = req.body.email;
     var password = req.body.password;
 
-    if (password.length < 8){
-        res.render('signup.ejs', {error: 'Password must be at least 8 characters'})
+    let resultOfValidator = passwordValidator(password);
+
+    if (!resultOfValidator.isValid){
+        res.render('signup.ejs', {error: resultOfValidator.message})
     } else {
 
         users.push({
@@ -35,5 +37,34 @@ router.post('/', (req,res) => {
         res.redirect('/login');
     }
 })
+
+let blacklistedPasswords = ["Password123"];
+
+function passwordValidator(pswd) {
+  
+    let msg = "valid";
+    let isValid = false;
+    
+    if(/\s/.test(pswd)) {
+        msg = "password may not contain spaces"
+    } else if (!(/\d/.test(pswd) && /[a-zA-Z]/.test(pswd))) {
+        msg = "password must contain letter and a digit";
+    } else if (pswd.length < 8) {
+      msg = "password must have length greater than 8";
+    } else if (pswd.toLowerCase() === pswd) {
+        msg = "password needs uppercase letters";
+    } else if (pswd.toUpperCase() === pswd) {
+        msg = "password needs uppercase letters";
+    } else if(blacklistedPasswords.indexOf(pswd) > -1) {
+        msg = "password blacklisted"
+    } else {
+        isValid=true;
+    }
+  
+    return {
+      "message": msg,
+      "isValid": isValid
+    }
+  }
 
 module.exports = router
