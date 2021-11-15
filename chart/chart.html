@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Weather App</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  </head>
+  <body>
+    <h1>Weather statistics</h1>
+    <canvas id="myChart" width="400" height="200"></canvas>
+
+    <script>
+      // Data from: https://data.giss.nasa.gov/gistemp/
+      // Mean from: https://earthobservatory.nasa.gov/world-of-change/DecadalTemp
+
+      window.addEventListener('load', setup);
+
+      async function setup() {
+        const ctx = document.getElementById('myChart').getContext('2d');
+        let gradient = ctx.createLinearGradient(0,0,0,400);
+        gradient.addColorStop(0,"rgba(58,123,213,1)");
+        gradient.addColorStop(1,"rgba(0,210,255,0.3)");
+
+        const dataTemps = await getData();
+        const myChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: dataTemps.years,
+            datasets: [
+              {
+                label: 'Global Temperature in °C',
+                data: dataTemps.temps,
+                fill: false,
+                borderColor: "#000",
+                backgroundColor: gradient,
+                pointBackgroundColor :"#000",
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {
+            radius : 5,
+            hoverRadius: 12,
+            responsive : true,
+            scales
+          }
+        });
+      }
+
+      async function getData() {
+        
+        const response = await fetch('ZonAnn.Ts+dSST.csv');
+        const data = await response.text();
+        const years = [];
+        const temps = [];
+        
+        const rows = data.split('\n').slice(1);
+        rows.forEach(row => {
+          const cols = row.split(',');
+          years.push(cols[0]);
+          temps.push(14 + parseFloat(cols[1]));
+          
+        return { years, temps};
+      })
+    }
+    </script>
+  </body>
+</html>
