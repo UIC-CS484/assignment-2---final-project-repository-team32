@@ -32,7 +32,7 @@ class DbService {
         if (err) {
           throw err;
         } else {
-          console.log("DB Read Success:", rows);
+          console.log("DB Read Success");
           resolve(rows);
         }
       });
@@ -51,7 +51,7 @@ class DbService {
         if (err) {
           throw err;
         } else {
-          console.log("DB Read Success:", rows);
+          console.log("DB Read Success");
           resolve(rows);
         }
       });
@@ -69,7 +69,7 @@ class DbService {
         console.log("DB ERROR:", err);
         return console.log(err.message);
       } else {
-        console.log("DB INSERT Success:", this.changes);
+        console.log("DB INSERT Success");
       }
     });
   }

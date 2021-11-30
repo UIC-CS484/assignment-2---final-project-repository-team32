@@ -1,6 +1,7 @@
 const LocalStrategy = require("passport-local").Strategy;
 let users = require("./users.json");
 const dbService = require("./dbService.js");
+const bcrypt = require("bcrypt");
 
 function initialize(passport) {
   const authenticateUser = async (email, password, done) => {
@@ -10,10 +11,15 @@ function initialize(passport) {
       return done(null, false, { message: "No user with that email" });
     }
 
-    if (user.password === password) {
-      return done(null, user);
-    } else {
-      return done(null, false, { message: "Password incorrect" });
+    try {
+      if (await bcrypt.compare(password, user.password)) {
+        console.log("---login success");
+        return done(null, user);
+      } else {
+        return done(null, false, { message: "Password incorrect" });
+      }
+    } catch (e) {
+      return done(e);
     }
   };
 
@@ -28,7 +34,7 @@ async function getUserByEmail(email) {
   const db = dbService.getDbServiceInstance();
   let users = await db.getUserByEmail(email);
 
-  console.log("users:", users);
+  // console.log("users:", users);
 
   if (users.length === 0) {
     return null;
@@ -43,7 +49,7 @@ async function getUserById(id) {
   const db = dbService.getDbServiceInstance();
   let users = await db.getUserById(id);
 
-  console.log("users:", users);
+  // console.log("users:", users);
 
   if (users.length === 0) {
     return null;
