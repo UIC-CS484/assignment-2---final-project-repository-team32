@@ -1,10 +1,15 @@
-# Assignment 2
+# Assignment 3
 
 The Weather is a web application that will (eventually) display (1) the current weather for Chicago and (2) graph its forecast.
 
-It also allows registered users to favorite cities which they may view the weather of from a joint panel.
+It also allows registered users to input their address to then view the weather of.
+
+## ERD Diagram
+
+![ERD diagram](./erd.png)
 
 ## Testing Strategy
+
 The current tests test the passwordValidator function in validator.js. So far, this is the only file (and function) that contains application logic.
 
 The tests may be found in validator.test.js. Above each test is description of what it tests for. See the end of this file for the descriptions here.
@@ -13,7 +18,8 @@ The tests may be found in validator.test.js. Above each test is description of w
 
 3 tests test passwords that meet the conditions.
 
-The conditions are: 
+The conditions are:
+
 1. no spaces,
 2. contains letters,
 3. contains digits,
