@@ -1,43 +1,36 @@
-var fs = require('fs');
-const express = require('express')
-const router = express.Router()
+var fs = require("fs");
+const express = require("express");
+const router = express.Router();
+const dbService = require("../dbService.js");
 
-const passwordValidator = require('../validator.js')
+const passwordValidator = require("../validator.js");
 
 //create routes
-router.get('/',(req,res) => {
-    res.render('signup.ejs') //name of the view index.ejs
-})
+router.get("/", (req, res) => {
+  res.render("signup.ejs"); //name of the view index.ejs
+});
 
-router.post('/', (req,res) => {
+router.post("/", (req, res) => {
+  var name = req.body.name;
+  var email = req.body.email;
+  var password = req.body.password;
 
-    let users = [];
+  let resultOfValidator = passwordValidator(password);
 
-    var id = Math.abs(Date.now().toString());
-    var name = req.body.name;
-    var email = req.body.email;
-    var password = req.body.password;
+  if (!resultOfValidator.isValid) {
+    res.render("signup.ejs", { error: resultOfValidator.message });
+  } else {
+    user = {
+      name: name,
+      email: email,
+      password: password,
+    };
 
-    let resultOfValidator = passwordValidator(password);
+    const db = dbService.getDbServiceInstance();
+    db.createUser(user);
 
-    if (!resultOfValidator.isValid){
-        res.render('signup.ejs', {error: resultOfValidator.message})
-    } else {
+    res.redirect("/login");
+  }
+});
 
-        users.push({
-            id: id,
-            name: name,
-            email: email,
-            password: password
-        })
-
-        console.log(users);
-
-        let data = JSON.stringify(users);
-        fs.writeFileSync('users.json', data);
-
-        res.redirect('/login');
-    }
-})
-
-module.exports = router
+module.exports = router;
