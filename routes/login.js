@@ -1,16 +1,27 @@
-const express = require('express')
-const passport = require('passport')
-const router = express.Router()
+const express = require("express");
+const passport = require("passport");
+const router = express.Router();
 
 //create routes
-router.get('/',(req,res) => {
-    res.render('login.ejs') //name of view to be loaded
-})
+router.get("/", checkNotAuthenticated, (req, res) => {
+  res.render("login.ejs"); //name of view to be loaded
+});
 
-router.post('/', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true
-}))
+router.post(
+  "/",
+  checkNotAuthenticated,
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/login",
+    failureFlash: true,
+  })
+);
 
-module.exports = router
+function checkNotAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return res.redirect("/");
+  }
+  next();
+}
+
+module.exports = router;

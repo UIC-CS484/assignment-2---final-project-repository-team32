@@ -7,11 +7,11 @@ const bcrypt = require("bcrypt");
 const passwordValidator = require("../validator.js");
 
 //create routes
-router.get("/", async (req, res) => {
+router.get("/", checkNotAuthenticated, async (req, res) => {
   res.render("signup.ejs"); //name of the view index.ejs
 });
 
-router.post("/", async (req, res) => {
+router.post("/", checkNotAuthenticated, async (req, res) => {
   var name = req.body.name;
   var email = req.body.email;
   var password = req.body.password;
@@ -39,5 +39,12 @@ router.post("/", async (req, res) => {
     }
   }
 });
+
+function checkNotAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return res.redirect("/");
+  }
+  next();
+}
 
 module.exports = router;

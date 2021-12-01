@@ -1,10 +1,16 @@
 <div>
-    <% if(locals.name !== null) {%> 
+    <% if(locals.name) { %> 
     <h1>Hi, <%= locals.name %> </h1>
     <% } %> 
     
     <a href="/login">Login</a>
     <a href="/signup">Sign up</a>
+
+    <% if(locals.name) { %> 
+    <form action="/logout?_method=DELETE" method="POST">
+        <button type="submit">Log Out</button>
+    </form>
+    <% } %> 
 
     <div class="weather banner">
         <h1 class="city-name">Chicago</h1>
