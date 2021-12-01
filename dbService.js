@@ -3,7 +3,7 @@ let instance = null;
 //const bcrypt = require('bcryptjs');
 
 //Creating a new database instance - Indication of connected database
-//Before peforming any operations to database, make sure database is connected.
+//Before performing any operations to database, make sure database is connected.
 let db = new sqlite3.Database("./weatherappdb.sqlite", (err) => {
   if (err) {
     // Cannot open database
@@ -71,6 +71,38 @@ class DbService {
       } else {
         console.log("DB INSERT Success");
       }
+    });
+  }
+
+  // update name
+  updateName(newName, oldName, id) {
+    return new Promise((resolve, reject) => {
+      console.log("--db updateName:", newName, oldName, id);
+      var sql = "UPDATE USER SET name=? WHERE id=?";
+      var params = [newName, id];
+
+      db.run(sql, params, function (err) {
+        if (err) {
+          return console.log(err);
+        }
+        console.log("DB UPDATE Success");
+        console.log(`changes: ${this.changes}`);
+        resolve();
+      });
+    });
+  }
+
+  // delete account
+  deleteAccount(id) {
+    var sql = "DELETE FROM USER WHERE id=?";
+    var params = [id];
+
+    db.run(sql, params, function (err) {
+      if (err) {
+        return console.log(err);
+      }
+      console.log("DB DELETE Success");
+      console.log(`changes: ${this.changes}`);
     });
   }
 }

@@ -1,0 +1,24 @@
+<div class="form background">
+  <div class="form container">
+    <h1>Profile</h1>
+
+    <% if(user) {%>
+    <p>name: <%= user.name %></p>
+    <p>email: <%= user.email %></p>
+    <p>address: <%= user.address %></p>
+    <% } %>
+
+    <form action="/profile/changeName" method="POST">
+      <div>
+        <label for="newName">Name</label>
+        <input type="name" name="newName" id="newName" required />
+      </div>
+      <button type="submit" id="changeNameBtn">Change Name</button>
+    </form>
+
+    <form action="/profile?_method=DELETE" method="POST">
+      <button type="submit" id="deleteBtn">delete account</button>
+    </form>
+    <a href="/">home</a>
+  </div>
+</div>

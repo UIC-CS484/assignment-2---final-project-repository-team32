@@ -36,6 +36,7 @@ const loginRouter = require("./routes/login");
 const signupRouter = require("./routes/signup");
 const favoritesRouter = require("./routes/favorites");
 const logoutRouter = require("./routes/logout");
+const profileRouter = require("./routes/profile");
 
 // "/" page
 app.use("/", indexRouter);
@@ -45,5 +46,6 @@ app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
 app.use("/favorites", favoritesRouter);
 app.use("/logout", logoutRouter);
+app.use("/profile", profileRouter);
 
 app.listen(process.env.PORT, () => console.log("app is running"));
