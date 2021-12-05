@@ -4,3 +4,7 @@ body{
     justify-content: center;
     height: 100vh;
 }
+canvas{
+    height: 200px;
+    width: 300px;
+}
