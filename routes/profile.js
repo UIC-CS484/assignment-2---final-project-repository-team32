@@ -3,8 +3,12 @@ const router = express.Router();
 const dbService = require("../dbService.js");
 
 //create routes
-router.get("/", checkAuthenticated, (req, res) => {
+router.get("/", checkAuthenticated, async (req, res) => {
   console.log("--profile: user:", req.user);
+
+  req.user.address = await getCity(req.user.id);
+  console.log("addr:",req.user.address);
+
   res.render("profile.ejs", { user: req.user }); //name of view to be loaded
 });
 
@@ -24,9 +28,32 @@ router.post("/changeName", checkAuthenticated, async (req, res) => {
   res.redirect("/profile");
 });
 
+router.post("/changeCity", checkAuthenticated, async (req, res) => {
+  console.log("--changeCity:", req.body.newCity);
+
+  await updateCity(req.body.newCity, 'us', req.user.id);
+
+  console.log("--rendering anew");
+  res.redirect("/profile");
+});
+
 async function updateName(newName, oldName, id) {
   const db = dbService.getDbServiceInstance();
   await db.updateName(newName, oldName, id);
+}
+
+async function updateCity(newCity, oldCity, id) {
+  const db = dbService.getDbServiceInstance();
+  await db.updateCity(newCity, oldCity, id);
+}
+
+async function getCity(id) {
+  const db = dbService.getDbServiceInstance();
+  let city = await db.getCity(id);
+  console.log("getCity:",id,city);
+  city = city[0].city+','+city[0].country
+
+  return city;
 }
 
 function checkAuthenticated(req, res, next) {

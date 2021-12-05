@@ -92,6 +92,24 @@ class DbService {
     });
   }
 
+  // update city
+  updateCity(newCity, newCountry, id) {
+    return new Promise((resolve, reject) => {
+      console.log("--db updateCity:", newCity, newCountry, id);
+      var sql = "UPDATE USER SET address=LOC.id FROM (SELECT id FROM LOCATION WHERE city=? AND country=?) AS LOC WHERE USER.id=?;";
+      var params = [newCity,newCountry,id];
+
+      db.run(sql, params, function (err) {
+        if (err) {
+          return console.log(err);
+        }
+        console.log("DB UPDATE Success");
+        console.log(`changes: ${this.changes}`);
+        resolve();
+      });
+    });
+  }
+
   // delete account
   deleteAccount(id) {
     var sql = "DELETE FROM USER WHERE id=?";
@@ -103,6 +121,23 @@ class DbService {
       }
       console.log("DB DELETE Success");
       console.log(`changes: ${this.changes}`);
+    });
+  }
+
+  // get city
+  getCity(id) {
+    return new Promise((resolve, reject) => {
+      console.log("--db getCity:", id);
+      var sql = "SELECT city,country FROM (SELECT * FROM USER WHERE USER.id=?) AS USERX JOIN LOCATION ON USERX.address=LOCATION.id;";
+      var params = [id];
+
+      db.all(sql, params, function (err,rows) {
+        if (err) {
+          return console.log(err);
+        }
+        console.log("DB getCity Success");
+        resolve(rows);
+      });
     });
   }
 }
