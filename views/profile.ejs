@@ -8,25 +8,32 @@
     <p>city: <%= user.address %></p>
     <% } %>
 
-    <form action="/profile/changeName" method="POST">
-      <div>
-        <label for="newName">Name</label>
-        <input type="name" name="newName" id="newName" required />
-      </div>
-      <button type="submit" id="changeNameBtn">Change Name</button>
-    </form>
+    <div id="updateNameContainer">
+      <form action="/profile/changeName" method="POST">
+        <div>
+          <label for="newName">Name</label>
+          <input type="name" name="newName" id="newName" required />
+        </div>
+        <button type="submit" id="changeNameBtn">Change</button>
+      </form>
+    </div>
 
-    <form action="/profile/changeCity" method="POST">
-      <div>
-        <label for="newCity">City</label>
-        <input type="name" name="newCity" id="newCity" required />
-      </div>
-      <button type="submit" id="changeCityBtn">Change City</button>
-    </form>
+    <div id="updateCityContainer">
+      <form action="/profile/changeCity" method="POST">
+        <div>
+          <label for="newCity">City</label>
+          <input type="name" name="newCity" id="newCity" required />
+        </div>
+        <button type="submit" id="changeCityBtn">Change</button>
+      </form>
+    </div>
 
-    <form action="/profile?_method=DELETE" method="POST">
-      <button type="submit" id="deleteBtn">delete account</button>
-    </form>
+    <div id="deleteBtnContainer">
+      <form action="/profile?_method=DELETE" method="POST">
+        <button type="submit" id="deleteBtn">delete account</button>
+      </form>
+    </div>
+
     <a href="/">home</a>
   </div>
 </div>

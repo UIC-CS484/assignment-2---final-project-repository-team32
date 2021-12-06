@@ -51,7 +51,12 @@ async function getCity(id) {
   const db = dbService.getDbServiceInstance();
   let city = await db.getCity(id);
   console.log("getCity:",id,city);
-  city = city[0].city+','+city[0].country
+  
+  if(city[0]) {
+    city = city[0].city+','+city[0].country
+  } else {
+    city = 'no city selected'
+  }
 
   return city;
 }

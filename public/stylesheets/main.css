@@ -1,8 +1,2 @@
 @import 'shared/login.css';
-@import 'index.css';
-
-body {
-    margin: 0px;
-    padding: 0px;
-    background-color: burlywood;
-}
+@import 'shared/index.css';

@@ -1,39 +1,77 @@
-<div>
+<div id="mainContainer">
     <% if(locals.name) { %> 
-    <h1 id="greeting">Hi, <%= locals.name %> </h1>
+        <div id="greeting">Hi, <%= locals.name %> </div>
     <% } %> 
+    <div id="searchContainer">
+        <input class="searchControl" type="text" placeholder="City Name or Zipcode" id="searchInput">
+        <button class="searchControl" id="searchBtn">Search</button>
+    </div>
+
+    <div id="accountContainer">
+        <a href="/login">Login</a>
+        <a href="/signup">Sign up</a>
+        <% if(locals.name) { %> 
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" id="logoutBtn">Log Out</button>
+            </form>
+            <a href="/profile">profile</a>
+        <% } %> 
+    </div>
+
+    <div id="weatherContainer">
+        <div id="weatherDescription">
+            <h1 id="cityHeader"></h1>
+            <div id="weatherMain">
+                <div id="temperature"></div>
+                <div id="weatherDescriptionHeader"></div>
+                <div><img id="documentIconImg"></div>
+            </div>
+            <hr>
+            <div id="windSpeed" class="bottom-details"></div>
+            <div id="humidity" class="bottom-details"></div>
+        </div>
+    </div>
     
-    <a href="/login">Login</a>
-    <a href="/signup">Sign up</a>
+    <canvas id="myChart" width="400" height="400"></canvas>
 
-    <% if(locals.name) { %> 
-    <form action="/logout?_method=DELETE" method="POST">
-        <button type="submit" id="logoutBtn">Log Out</button>
-    </form>
-    <a href="/profile">profile</a>
-    <% } %> 
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
 
-    <div class="weather banner">
-        <h1 class="city-name"><%= locals.data %> </h1>
+        let weatherString = "<%= locals.weatherData %>";
 
-        <p class="date-updated">5:18pm CST, 10/24/2021</h3>
+        let weatherData;
+        if (weatherString.length === 0) {
+            weatherData = new Array();
+        } else {
+            weatherData = weatherString.replace(/, +/g, ",").split(",").map(Number);
+        }
 
-        <div class="temperature box">
-            <h2 class="reading">
-                88deg
-            </h2>
-        </div>
-        <div class="high-low box">
-            <p>hi: 90deg</p>
-            <p>lo: 70deg</p>
-        </div>
-        <div class="extra-readings box">
-            <p class="precip">precip: -</p>
-            <p class="humidity">humid: -</p>
-            <p class="wind">wind: -</p>
-        </div>
-    </div>
-    <div id="chart-container">
-        <canvas id="myChart"></canvas>
-    </div>
+        const labels = [1,2,3,4,5,6,7];
+        const data = {
+        labels: labels,
+            datasets: [{
+                // label: 'My First Dataset',
+                data: weatherData,
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1,
+            }]
+        };
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                    maintainAspectRatio: false,
+                    legend: {display: false},
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.yLabel;
+                            }
+                        }
+                    }
+                }
+        };
+        const myChart = new Chart(ctx, config);
+    </script>
 </div>
