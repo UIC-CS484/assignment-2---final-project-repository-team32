@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 
-const dotenv = require("dotenv");
-dotenv.config();
+if (process.env.NODE_ENV !== 'production') {
+  require("dotenv").config();
+}
 
 //create routes
 router.get("/", (req, res) => {

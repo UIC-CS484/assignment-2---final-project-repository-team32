@@ -4,10 +4,12 @@ const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
 expressLayouts = require("express-ejs-layouts");
-const dotenv = require("dotenv");
+
 const methodOverride = require("method-override");
 
-dotenv.config();
+if (process.env.NODE_ENV !== 'production') {
+  require("dotenv").config();
+}
 
 const initializePassport = require("./passport-config");
 initializePassport(passport);
@@ -48,4 +50,4 @@ app.use("/favorites", favoritesRouter);
 app.use("/logout", logoutRouter);
 app.use("/profile", profileRouter);
 
-app.listen(process.env.PORT, () => console.log("app is running"));
+app.listen(process.env.PORT || 3000, () => console.log("app is running"));
