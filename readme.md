@@ -1,8 +1,50 @@
-# Assignment 3
+# The Weather
 
-The Weather is a web application that will (eventually) display (1) the current weather for Chicago and (2) graph its forecast.
+The Weather is a web application that allows users to search for any city's current weather.
 
-It also allows registered users to input their address to then view the weather of.
+It also allows users to log in and select a city (as a "home" address).
+
+Furthermore, a user may delete his account and or update his name or city.
+
+Additionally, a chart displays a seven-hour forecast of the searched city. (Currently, the chart only displays the forecast of Chicago.)
+
+(Not implemented: the homepage will show weather of the user's city.)
+
+## Mission and goals
+Our site's goal is to provide a clean and easy to use interface for accessing weather information.
+
+It was also built for us to get acquainted with web development.
+
+## Member roles and bios
+Tasks were shared, but task direction was done as follows.
+### Aman Yousuf Mohammed
+
+- [amoham96@uic.edu](amoham96@uic.edu)
+- [https://github.com/amoham96](https://github.com/amoham96)
+- Tooling (Docker, GitHub Actions), deployment, authentication, frontend, charting
+
+### Yusuf Khan
+
+- [ykhan21@uic.edu](ykhan21@uic.edu)
+- [https://github.com/ykhan21](https://github.com/ykhan21)
+- Routing, API connection, database administration, testing, MVC structuring of project
+
+## Tools and resources
+- [Web Dev Simplified](https://www.youtube.com/channel/UCFbNIlppjAuEX4znoulh0Cw)
+- [Portexe](https://portexe.com/)
+- [CS484 Course Site](https://cs-uic.pages.dev/docs/syllabus_cs484)
+- Tools: VSCode and plugins, GitHub, Heroku, DB Browser for SQLite
+
+## Interaction with API
+![API interaction 1](./api1.png)
+
+![API interaction 2](./api2.png)
+
+## URL
+
+(placeholder)
+
+
 
 ## ERD Diagram
 
