@@ -34,53 +34,66 @@
     
     <canvas id="myChart" width="400" height="400"></canvas>
 
+    <button id="regraphBtn" onclick="regraph()">ReGraph</button>
+
     <script>
-        const ctx = document.getElementById('myChart').getContext('2d');
+        let graphType = 'line';
+        let chart;
+        function regraph() {
+            graphType = ('line'===graphType)? 'bar':'line';
+            chart?.destroy();
 
-        let weatherString = "<%= locals.weatherData %>";
-
-        let weatherData;
-        if (weatherString.length === 0) {
-            weatherData = new Array();
-        } else {
-            weatherData = weatherString.replace(/, +/g, ",").split(",").map(Number);
-        }
-
-        const labels = [1,2,3,4,5,6,7];
-        const data = {
-        labels: labels,
-            datasets: [{
-                // label: 'My First Dataset',
-                data: weatherData,
-                fill: false,
-                backgroundColor: [
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-            ],
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1,
-            }]
-        };
-        const config = {
-            type: 'bar',
-            data: data,
-            options: {
-                    maintainAspectRatio: false,
-                    legend: {display: false},
-                    tooltips: {
-                        callbacks: {
-                            label: function(tooltipItem) {
-                                return tooltipItem.yLabel;
+            const ctx = document.getElementById('myChart').getContext('2d');
+    
+            let weatherString = "<%= locals.weatherData %>";
+    
+            let weatherData;
+            if (weatherString.length === 0) {
+                weatherData = new Array();
+            } else {
+                weatherData = weatherString.replace(/, +/g, ",").split(",").map(Number);
+            }
+    
+            const labels = [1,2,3,4,5,6,7];
+            const data = {
+            labels: labels,
+                datasets: [{
+                    // label: 'My First Dataset',
+                    data: weatherData,
+                    fill: false,
+                    backgroundColor: [
+                    'rgb(90, 90, 90)',
+                    'rgb(90, 90, 90)',
+                    'rgb(90, 90, 90)',
+                    'rgb(90, 90, 90)',
+                    'rgb(90, 90, 90)',
+                    'rgb(90, 90, 90)',
+                    'rgb(90, 90, 90)',
+                ],
+                    borderColor: 'rgb(90, 90, 90)',
+                    tension: 0.1,
+                }]
+            };
+            const config = {
+                type: graphType,
+                data: data,
+                options: {
+                        maintainAspectRatio: false,
+                        legend: {display: false},
+                        tooltips: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    return tooltipItem.yLabel;
+                                }
                             }
                         }
                     }
-                }
-        };
-        const myChart = new Chart(ctx, config);
+            };
+            const myChart = new Chart(ctx, config);
+            chart = myChart;
+        }
+
+        regraph();
+        regraph();
     </script>
 </div>
