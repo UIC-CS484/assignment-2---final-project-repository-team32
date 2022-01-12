@@ -1,5 +1,7 @@
 # The Weather
 
+URL: https://theweather484.herokuapp.com/
+
 The Weather is a web application that allows users to search for any city's current weather.
 
 It also allows users to log in and select a city (as a "home" address).
@@ -39,11 +41,6 @@ Tasks were shared, but task direction was done as follows.
 ![API interaction 1](./api1.png)
 
 ![API interaction 2](./api2.png)
-
-## URL
-
-- https://theweather484.herokuapp.com/
-
 
 
 ## ERD Diagram
